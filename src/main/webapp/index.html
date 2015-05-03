@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="resources\css\style.css" rel="stylesheet">
+    <script src="resources\js\scripts.js"></script>
+    <link href="resources\images\wifi.png" id="onConnection">
+    <link href="resources\images\nowifi.png" id="offConnection">
+</head>
+
+<body onload="run()">
+
+<div class="wrapper">
+
+    <header class="header">
+        <i><br><br><br>Gloomy-chat</i>
+    </header>
+
+    <main>
+
+        <article>
+            <div class="content">
+                <br>
+                <table id="chat">
+                </table>
+            </div>
+        </article>
+
+    </main>
+
+    <div class="lowerMiddle">
+
+        <article>
+            <div class="messagePanel">
+                <br>
+                <textarea class="msgInput" placeholder="Input your message here..." id="textInput"></textarea>
+            </div>
+        </article>
+
+        <aside class="chatButtons">
+            <input type="submit" class="simpleChatButton" name="sendMsg" value="Send" onclick="sendMessage()"><br><br>
+            <input type="submit" class="simpleChatButton" name="sendEditedMsg" value="Apply Edit" onclick="editMessage()">
+        </aside>
+
+        <aside class="rightSidebarPanel">
+            <div class="namePanel" align="left"><br>
+                <input type="text" placeholder="Input Your name here..." id="nameField" class="userNameField" maxlength="24">
+                <input type="submit" name="submitName" value="Submit!" class="simpleOutOfChatButton" onclick="onNameButtonClick()">
+            </div>
+            <br>
+            <div class="connectionPanel">
+                Connection: <br>
+                <img src="resources\images\wifi.png" id="connectionIcon" alt="Here will be the indicator of connection" height="40" width="40" border="1px">
+            </div>
+        </aside>
+
+    </div>
+
+</div>
+
+<footer class="footer">
+    <br>
+    <i>Gloomy-chat v 1.0.0 alpha. All rights are not reserved. </i>
+</footer>
+
+</body>
+</html>
