@@ -14,7 +14,7 @@ var theMessage = function(messageText, userName, msgDate, msgId){
 
 var appState = {
     username : 0,
-    mainUrl : 'http://localhost:999/chat',
+    mainUrl : 'WebChatApplication',
     messageList:[],
     token : 'TN11EN'
 };
@@ -43,16 +43,16 @@ function restoreUsername(){
     return item && JSON.parse(item);
 }
 
-function restoreMessages(continueWith){
-   var url = appState.mainUrl + '?token=' + appState.token;
-    getQuerry(url, function (responseText) {
-        getMessageList(responseText, function () {
-            setTimeout(function () {
-                restoreMessages(continueWith);
-            }, 1000);
-        });
-    });
-}
+//function restoreMessages(continueWith){
+//   var url = appState.mainUrl + '?token=' + appState.token;
+ //   getQuerry(url, function (responseText) {
+ //       getMessageList(responseText, function () {
+ //           setTimeout(function () {
+ //               restoreMessages(continueWith);
+ //           }, 1000);
+ //       });
+ //   });
+//}
 
 function getMessageList(responseText, continueWith){
     console.assert(responseText != null);
