@@ -9,16 +9,16 @@ public class Message {
     private String message;
     private String user;
     private String date;
-    private double id;
+    private String id;
 
     public Message(String user, String message) {
         this.message = message;
         this.user = user;
         date = getCurrentDate();
-        id = (int)(Math.random() * 2147483647);
+        id = Integer.toString((int)(Math.random() * 2147483647));
     }
 
-    public Message(String message, String user, String date, double id) {
+    public Message(String user, String message, String id, String date) {
         this.message = message;
         this.user = user;
         this.date = date;
@@ -56,11 +56,11 @@ public class Message {
         this.date = date;
     }
 
-    public double getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(double id) {
+    public void setId(String id) {
         this.id = id;
     }
 
