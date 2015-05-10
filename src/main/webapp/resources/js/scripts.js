@@ -43,16 +43,16 @@ function restoreUsername(){
     return item && JSON.parse(item);
 }
 
-//function restoreMessages(continueWith){
-//   var url = appState.mainUrl + '?token=' + appState.token;
- //   getQuerry(url, function (responseText) {
- //       getMessageList(responseText, function () {
- //           setTimeout(function () {
- //               restoreMessages(continueWith);
- //           }, 1000);
- //       });
- //   });
-//}
+function restoreMessages(continueWith){
+   var url = appState.mainUrl + '?token=' + appState.token;
+   getQuerry(url, function (responseText) {
+        getMessageList(responseText, function () {
+            setTimeout(function () {
+                restoreMessages(continueWith);
+            }, 1000);
+        });
+    });
+}
 
 function getMessageList(responseText, continueWith){
     console.assert(responseText != null);
@@ -105,13 +105,13 @@ function changeName(value, continueWith){
 function renameDeclaration(value, continueWith){
     var msg;
     if (appState.username == 0) {
-        msg = theMessage(value + " has joined to this chat.", "System", 0, idRandomiser());
+        msg = theMessage(value + " has joined to this chat.", "System");
         postQuerry(appState.mainUrl, JSON.stringify(msg), function () {
             continueWith && continueWith();
         });
     }
     else {
-        msg = theMessage(appState.username + " has changed name to " + value, "System", 0, idRandomiser());
+        msg = theMessage(appState.username + " has changed name to " + value, "System");
         postQuerry(appState.mainUrl, JSON.stringify(msg), function () {
             continueWith && continueWith();
         });
@@ -137,7 +137,7 @@ function sendMessage(continueWith){
     if (newMessage.value == '') {
         return;
     }
-    var msg = theMessage(newMessage.value, userName, 0, idRandomiser());
+    var msg = theMessage(newMessage.value.trim(), userName);
     postQuerry(appState.mainUrl, JSON.stringify(msg), function () {
         continueWith && continueWith();
     });
