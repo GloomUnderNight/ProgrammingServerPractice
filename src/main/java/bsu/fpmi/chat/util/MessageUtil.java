@@ -8,6 +8,8 @@ import org.json.simple.parser.ParseException;
 
 public class MessageUtil {
 
+    public static  final String TOKEN = "token";
+    public static final String MESSAGES = "messages";
     private static final String TN = "TN";
     private static final String EN = "EN";
     private static final String USER = "user";
