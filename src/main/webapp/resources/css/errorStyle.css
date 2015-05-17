@@ -1,0 +1,26 @@
+body {
+    background-color: #C9F1FD;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #550C8B;
+}
+
+.noButton {
+    position: relative;
+    display: inline-block;
+    width: 20%;
+    height: 20%;
+    line-height: 100%;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    border: 2px solid #A8C6FA;
+    border-radius: 5px;
+    box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .1em .1em .2em #C9F1FD;
+    background: linear-gradient(#C9F1FD, #00A4D3 48%, #00A4D3 52%, #A8C6FA);
+    font-size: 500%;
+}
+.noButton:active {
+    top: .1em;
+    left: .1em;
+}
