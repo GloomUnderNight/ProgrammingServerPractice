@@ -75,7 +75,7 @@ public class StoreIntoXML {
         messageElement.appendChild(user);
 
         Element messageText = document.createElement(MESSAGETEXT);
-        messageText.appendChild(document.createTextNode(message.getMessage()));
+        messageText.appendChild(document.createTextNode(message.getMessageText()));
         messageElement.appendChild(messageText);
 
         Element date = document.createElement(DATE);
@@ -105,8 +105,12 @@ public class StoreIntoXML {
 
                 Node node = childNodes.item(i);
 
-                if (MESSAGETEXT.equals(node.getNodeName())) {
-                    node.setTextContent(message.getMessage());
+                if (USER.equals(node.getNodeName())) {
+                    node.setTextContent(message.getUser());
+                }
+
+                if (MESSAGETEXT.equals(node.getNodeName())){
+                    node.setTextContent(message.getMessageText());
                 }
 
                 if (DATE.equals(node.getNodeName())) {
