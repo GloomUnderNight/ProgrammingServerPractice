@@ -1,11 +1,7 @@
 package bsu.fpmi.chat.controller;
 
-import static bsu.fpmi.chat.util.MessageUtil.fromStringToJSON;
-import static bsu.fpmi.chat.util.MessageUtil.fromJsonToMessage;
-import static bsu.fpmi.chat.util.MessageUtil.TOKEN;
-import static bsu.fpmi.chat.util.MessageUtil.MESSAGES;
-import static bsu.fpmi.chat.util.MessageUtil.getIndex;
-import static bsu.fpmi.chat.util.MessageUtil.getToken;
+import static bsu.fpmi.chat.util.MessageUtil.*;
+import static bsu.fpmi.chat.util.ServletUtil.getMessageBody;
 
 import bsu.fpmi.chat.model.Message;
 import bsu.fpmi.chat.storage.xml.StoreIntoXML;
@@ -23,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPathExpressionException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -83,12 +80,12 @@ public class Server extends HttpServlet{
     @Override
      protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("doPost");
-        String data = ServletUtil.getMessageBody(request);
+        String data = getMessageBody(request);
         logger.info(data);
         try {
             JSONObject json = fromStringToJSON(data);
-            Message msg = fromJsonToMessage(json);
-            System.out.println(msg.getDate() + ' ' + msg.getUser() + " : " + msg.getMessage());
+            Message msg = fromJsonToNewMessage(json);
+            System.out.println(msg.getDate() + ' ' + msg.getUser() + " : " + msg.getMessageText());
             StoreIntoXML.addData(msg);
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (ParseException e) {
@@ -104,6 +101,40 @@ public class Server extends HttpServlet{
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         catch (TransformerException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Delete request");
+        String data = getMessageBody(request);
+        logger.info("Request data : " + data);
+        Message message;
+        try {
+            JSONObject jsonObject = fromStringToJSON(data);
+            message = fromJsonToMessage(jsonObject);
+            message.delete();
+            StoreIntoXML.updateData(message);
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (ParseException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (ParserConfigurationException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (SAXException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (TransformerException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (XPathExpressionException e) {
             logger.error(e);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
