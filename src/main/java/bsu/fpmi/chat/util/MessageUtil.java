@@ -14,6 +14,8 @@ public class MessageUtil {
     private static final String EN = "EN";
     private static final String USER = "user";
     private static final String MESSAGE = "message";
+    private static final String ID = "id";
+    private static final String DATE = "date";
 
     public static String getToken(int index) {
         Integer number = index * 8 + 11;
@@ -29,11 +31,22 @@ public class MessageUtil {
         return (JSONObject) parser.parse(data.trim());
     }
 
-    public static Message fromJsonToMessage(JSONObject json){
+    public static Message fromJsonToNewMessage(JSONObject json){
         String user = (String) json.get(USER);
         String messageText = (String) json.get(MESSAGE);
         if (user != null && messageText != null){
             return new Message(user, messageText);
+        }
+        return null;
+    }
+
+    public static Message fromJsonToMessage(JSONObject json){
+        String user = (String) json.get(USER);
+        String messageText = (String) json.get(MESSAGE);
+        String date = (String) json.get(DATE);
+        String id = (String) json.get(ID);
+        if (user != null && messageText != null && date != null && id != null){
+            return new Message(user, messageText, id , date);
         }
         return null;
     }
