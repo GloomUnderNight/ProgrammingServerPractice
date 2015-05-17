@@ -32,11 +32,11 @@ public class Message {
         return dateFormat.format(new Date());
     }
 
-    public String getMessage() {
+    public String getMessageText() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessageText(String message) {
         this.message = message;
     }
 
